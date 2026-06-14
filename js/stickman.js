@@ -4,6 +4,7 @@ function animateReplay(cps, replayData) {
     const ctx = canvas.getContext("2d");
 
     let x = 50;
+    let targetX = 50;
     let phase = 0;
 
     function drawStickman() {
@@ -52,6 +53,8 @@ function animateReplay(cps, replayData) {
     }
 
     function renderLoop() {
+        
+        x += (targetX - x) * 0.15;
 
         drawStickman();
 
@@ -70,23 +73,31 @@ function animateReplay(cps, replayData) {
 
         let index = 0;
 
+        const progressBar =
+            document.getElementById("replayProgress");
+
         function nextStep() {
 
             if (index >= replayData.length) {
                 return;
             }
 
-            x += 15;
+            targetX = Math.min(
+                targetX + 15,
+                canvas.width - 40
+            );
 
             phase += Math.PI / 2;
-
-            if (x > canvas.width + 30) {
-                x = -30;
-            }
 
             const delay = replayData[index];
 
             index++;
+
+            const progress =
+                (index / replayData.length) * 100;
+
+            progressBar.style.width =
+                `${progress}%`;
 
             setTimeout(nextStep, delay);
         }

@@ -70,6 +70,9 @@ function finishTest() {
         style = "Hiperactivo";
     }
 
+    document.getElementById("clicksText").textContent =
+        `Clicks Totales: ${clicks.length}`;
+
     document.getElementById("styleText").textContent =
         `Estilo: ${style}`;
 
