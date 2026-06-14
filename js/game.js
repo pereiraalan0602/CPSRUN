@@ -73,7 +73,12 @@ function finishTest() {
     document.getElementById("styleText").textContent =
         `Estilo: ${style}`;
 
-    animateReplay(Number(cps));
+    const replay = buildReplayData(clicks);
+
+    animateReplay(
+        Number(cps),
+        replay
+    );
 }
 
 document.addEventListener("DOMContentLoaded", () => {
