@@ -70,10 +70,18 @@ function finishTest() {
         style = "Hiperactivo";
     }
 
+    document.getElementById("clicksText").textContent =
+        `Clicks Totales: ${clicks.length}`;
+
     document.getElementById("styleText").textContent =
         `Estilo: ${style}`;
 
-    animateReplay(Number(cps));
+    const replay = buildReplayData(clicks);
+
+    animateReplay(
+        Number(cps),
+        replay
+    );
 }
 
 document.addEventListener("DOMContentLoaded", () => {
