@@ -1,4 +1,4 @@
-function animateReplay(cps) {
+function animateReplay(cps, replayData) {
 
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
@@ -51,20 +51,46 @@ function animateReplay(cps) {
         ctx.stroke();
     }
 
-    function loop() {
+    function renderLoop() {
 
         drawStickman();
 
-        x += cps * 0.5;
-
-        phase += cps * 0.05;
-
-        if (x > canvas.width + 30) {
-            x = -30;
-        }
-
-        requestAnimationFrame(loop);
+        requestAnimationFrame(renderLoop);
     }
 
-    loop();
+    renderLoop();
+
+    playReplay();
+    
+    function playReplay() {
+
+        if (replayData.length === 0) {
+            return;
+        }
+
+        let index = 0;
+
+        function nextStep() {
+
+            if (index >= replayData.length) {
+                return;
+            }
+
+            x += 15;
+
+            phase += Math.PI / 2;
+
+            if (x > canvas.width + 30) {
+                x = -30;
+            }
+
+            const delay = replayData[index];
+
+            index++;
+
+            setTimeout(nextStep, delay);
+        }
+
+        nextStep();
+    }
 }
