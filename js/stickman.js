@@ -79,6 +79,23 @@ function animateReplay(cps, replayData) {
         function nextStep() {
 
             if (index >= replayData.length) {
+
+                setTimeout(() => {
+
+                    index = 0;
+
+                    x = 50;
+                    targetX = 50;
+
+                    const progressBar =
+                        document.getElementById("replayProgress");
+
+                    progressBar.style.width = "0%";
+
+                    nextStep();
+
+                }, 100);
+
                 return;
             }
 
